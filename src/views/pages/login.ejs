@@ -1,0 +1,29 @@
+<div class="container vh-100 d-flex align-items-center justify-content-center">
+  <form class="form-signin" action="/login  " method="post">       
+    <h2 class="form-signin-heading"> login</h2>
+    <br>
+    <input type="text" class="form-control" name="email" placeholder="Email Address" required="" />
+    <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
+
+    <button class="btn w-100 btn-primary btn-block my-4" type="submit">Login</button>   
+
+    <div class="text-center my-2">Don't have an account? <a href="/register">Register</a>
+  </form>
+  </div>
+</div>
+
+<style>
+body {
+	background: #eee !important;	
+}
+
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);  
+
+}
+</style>

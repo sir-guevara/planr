@@ -1,0 +1,303 @@
+<div class="container bg-lightgrey" id="dashboardApp">
+    <div class="flex-sm-row flex-column  d-flex justify-content-between p-4 align-items-center">
+        <div class="col">
+            <h1 class="title ">{{new Date(plan.date).toLocaleDateString("en-US",{weekday: "long", year: "numeric",month: "long", day: "numeric", })}}</h1>
+            <p class="lh-1"><small>
+                {{plan.note}}
+        </div>
+        <div class="p-2">
+            <h4><%= user.fullname %></h4>
+            <!-- <div class="weather d-flex justify-content-between">
+                <div class="weather-icon h2">☀️</div>
+                <div class="weather-icon h2">☁️</div>
+                <div class="weather-icon h2">🌬</div>
+                <div class="weather-icon h2">🌧</div>
+                <div class="weather-icon h2">❄️</div>
+
+            </div> -->
+        </div>
+    
+    </div>
+
+
+    <div class="flex-sm-row flex-column d-flex justify-content-between">
+        <div class="col mx-1  bg-light shadow-sm p-3 rounded my-2">
+            <!-- PRIORITIES -->
+            <div class="priorities ">
+                <fieldset class="form-group">
+                    <legend class="mt-4 border-bottom">3 PRIORITIES</legend>
+                    <div class="form-check" v-for="priority in plan.priorities" :key="priority._id">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{ priority.name }}
+                        </label>
+                    </div>
+
+
+                </fieldset>
+            </div>
+            <br>
+            <!-- THINGS TO GET DONR -->
+            <div class="things-to-get-done">
+                <fieldset class="form-group">
+                    <legend class="mt-4 border-bottom">TODAY GOALS</legend>
+                    <ul v-for="goal,index in plan.goals" :key="goal._id">
+                        <li>{{ goal }}</li>  
+                    </ul>
+                </fieldset>
+            </div>
+        </div>
+
+        <!-- TODO LIST -->
+        <div class="col mx-1 bg-light shadow-sm p-3 rounded my-2">
+            <div class="todo-list">
+                <fieldset class="form-group">
+                    <legend class="mt-4 border-bottom">TODO LIST</legend>
+                    <div class="form-check"  v-for="todo in plan.todos" :key="todo._id">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{ todo.name }}
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        
+
+        <!-- PLANS AND SCHEDEULES  -->
+        <div class="plans-schedules col mx-1 bg-light shadow-sm p-3 rounded my-2">
+            <legend class="mt-4 border-bottom">SCHEDEULES AND PLANS</legend>
+            <table class="table">
+                <tbody>
+                    <tr v-for="schedule,index in plan.schedules" :key="index">
+                        <td class="time">{{schedule.time}}</td>
+                        <td class="plan p-1">{{schedule.item}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MEAL -->
+    <div class="meals mx-1 bg-light shadow-sm p-3 rounded my-2">
+        <h3 class="title my-4 border-bottom mx-1">MEAL PLAN</h3>
+        <div class="flex-sm-row flex-column  d-flex justify-content-between">
+            <div class="card bg-secondary mb-3" style="min-width: 10rem;">
+                <div class="card-header fs-6  fw-bolder">BREAKFAST ☕️</div>
+                <div class="card-body">
+                    <ul class="m-0" v-for="item,index in plan.mealPlan.breakfast"  :key="index">
+                        <li>{{ item }} </li>
+                    </ul>
+    <!--                 
+                    <div class="input-group mb-3" v-if="plan.mealPlan.breakfast.length <3">
+                        <input type="text" class="form-control form-control-sm" placeholder="Add Breakfast" v-model="breakfastItem">
+                        <button class="btn btn-primary btn-sm" type="button" @click="addBreakfast">Add ☕️</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="card bg-secondary mb-3" style="min-width: 10rem;">
+                <div class="card-header fs-6">LUNCH 🍽</div>
+                <div class="card-body">
+                    <ul class="m-0" v-for="item,index in plan.mealPlan.lunch"  :key="index">
+                        <li>{{ item }} </li>
+                    </ul>
+                    
+                    <!-- <div class="input-group mb-3" v-if="plan.mealPlan.lunch.length <3">
+                        <input type="text" class="form-control form-control-sm" placeholder="Add Lunch" v-model="lunchItem">
+                        <button class="btn btn-primary btn-sm" type="button" @click="addLunch">Add 🍽</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="card bg-secondary mb-3" style="min-width: 10rem;">
+                <div class="card-header fs-6">DINNER 🍜</div>
+                <div class="card-body">
+                    <ul class="m-0" v-for="item,index in plan.mealPlan.dinner"  :key="index">
+                        <li>{{ item }} </li>
+                    </ul>
+                    
+                    <!-- <div class="input-group mb-3" v-if="plan.mealPlan.dinner.length <3">
+                        <input type="text" class="form-control form-control-sm" placeholder="Add Dinner" v-model="dinnerItem">
+                        <button class="btn btn-primary btn-sm" type="button" @click="addDinner">Add 🍜</button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="card bg-secondary mb-3" style="min-width: 10rem;">
+                <div class="card-header fs-6">SNACKS 🥜</div>
+                <div class="card-body">
+                    <ul class="m-0" v-for="item,index in plan.mealPlan.snaks"  :key="index">
+                        <li>{{ item }} </li>
+                    </ul>
+                    
+                    <!-- <div class="input-group mb-3" v-if="plan.mealPlan.snaks.length <3">
+                        <input type="text" class="form-control form-control-sm" placeholder="Add Snak" v-model="snaksItem">
+                        <button class="btn btn-primary btn-sm" type="button" @click="addSnaks">Add 🥜</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <br>
+
+
+    <div class="flex-sm-row flex-column d-flex justify-content-between">
+        <div class="finance col mx-1 bg-light shadow-sm p-3 rounded">
+
+            <div class="flex-sm-row flex-column d-flex justify-content-between">
+                <div class="expense-list">
+                    <h3 class="title border-bottom">EXPENSE 💸</h3>
+                    <table class="table table-striped no-boarder">
+                        <tbody v-if="plan.finance">
+
+                            <tr v-for="expense,index in plan.finance.expense" :key="index">
+                               
+                                <td class="p-1 text-start">&nbsp;<img src="/img/profit.png" width="15">&nbsp;&nbsp;{{expense.item}}</td>
+                                <td class="text-end p-1">${{expense.amount}} &nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-sm" placeholder="item" aria-label="Item" v-model="expenseItem.item">
+                        <input type="number" class="form-control form-control-sm" placeholder="amount" aria-label="Server" v-model="expenseItem.amount">
+                        <button class="btn btn-primary btn-sm" type="button" @click="addExpense">Add</button>
+                    </div> -->
+                </div>
+                <div class="div">
+                    &nbsp;
+                    &nbsp;
+                </div>
+            
+                <div class="income-list">
+                    <h3 class="title border-bottom">INCOME 💰</h3>
+                    <table class="table table-striped no-boarder">
+                        <tbody v-if="plan.finance">
+                            <tr v-for="income,index in plan.finance.income" :key="index">
+                               
+                                <td class="p-1 text-start">&nbsp;<img src="/img/coin.png" width="15">&nbsp;&nbsp;{{income.item}}</td>
+                                <td class="text-end p-1">${{income.amount}} &nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-sm" placeholder="item" aria-label="Item" v-model="incomeItem.item">
+                        <input type="number" class="form-control form-control-sm" placeholder="amount" aria-label="Server" v-model="incomeItem.amount">
+                        <button class="btn btn-primary btn-sm" type="button" @click="addIncome">Add</button>
+                    </div> -->
+                </div>
+                <div class="comment">
+                    <h3 class="title border-bottom">Comments </h3>
+                   <div v-if="plan.finance">
+                        <ul v-for="item,index in plan.finance.comment" :key="index">
+                            
+                            <li>
+                                {{ item }}
+                            </li>
+                        </ul>
+                    <!-- <div class="input-group mb-3" v-if="plan.finance.comment.length<3">
+                        <input type="text" class="form-control form-control-sm" placeholder="Add comment ..." v-model="commentItem">
+                        <button class="btn btn-primary btn-sm" type="button" @click="addComment">Add</button>
+                    </div> -->
+                    </div> 
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <br>
+    <div class="flex-sm-row flex-column d-flex justify-content-between">
+
+
+        <div class="exercise bg-light shadow-sm p-3  rounded">
+            <h3 class="title border-bottom my4"> EXERCISE & HEALTH 🏃‍♀️ 🩺</h3>
+            <ul v-for="item,index in plan.exercises.items" :key="index">
+                <li> {{ item }} </li>
+            </ul>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-sm" placeholder="Add Exercise" v-model="exerciseItem">
+                <button class="btn btn-primary btn-sm" type="button" @click="addExercise">
+                    Add 🏃‍♀️ </button>
+            </div>
+
+
+            <div class="step my-2">
+                <h5 class="h5">Total Steps 👣</h5>
+                <div class="h6">{{plan.exercises?.steps?.toLocaleString()}} steps 👣</div>
+                <!-- <div class="input-group mb-3">
+                    <input type="number" class="form-control"  v-model="steps" name="steps">
+                    <button class="btn btn-outline-primary" @click="addSteps">Add 👣</button>
+                </div> -->
+
+            </div>
+        </div>
+        <div class="mood-water my-2 bg-light shadow-sm p-3 rounded">
+            <div class="mood">
+                <h3 class="title border-bottom">MOOD 😶</h3>
+                <div class="moods-list d-flex w-100 justify-content-between">
+                    <div class="feeling" @click="setMood('😀')" :class="{'active':'😀' ==plan.mood}"> 😀 </div>
+                    <div class="feeling"  @click="setMood('🙂')" :class="{'active':'🙂' ==plan.mood}"> 🙂 </div>
+                    <div class="feeling"  @click="setMood('😐')" :class="{'active':'😐' ==plan.mood}"> 😐 </div>
+                    <div class="feeling"  @click="setMood('😔')" :class="{'active':'😔' ==plan.mood}"> 😔 </div>
+                    <div class="feeling"  @click="setMood('🥲')" :class="{'active':'🥲' ==plan.mood}"> 🥲 </div>
+
+                </div>
+
+            </div> <br>
+            <div class="water my-2 ">
+                <h3 class="title border-bottom">WATER 💧</h3>
+                <div class="glas-list">
+                <div class="water-glass">
+                    <button class="btn btn-secondary p-0" @click="setWater(1)" > <img :src="selectedWater(1,this.plan.water)"alt="glass of water" width="40"></button>
+                    <button class="btn btn-secondary p-0" @click="setWater(2)" > <img :src="selectedWater(2,this.plan.water)"alt="glass of water" width="40"></button>
+                    <button class="btn btn-secondary p-0" @click="setWater(3)" > <img :src="selectedWater(3,this.plan.water)"alt="glass of water" width="40"></button>
+                    <button class="btn btn-secondary p-0" @click="setWater(4)" > <img :src="selectedWater(4,this.plan.water)"alt="glass of water" width="40"></button>
+                    <button class="btn btn-secondary p-0" @click="setWater(5)" > <img :src="selectedWater(5,this.plan.water)"alt="glass of water" width="40"></button>
+                    <button class="btn btn-secondary p-0" @click="setWater(6)" > <img :src="selectedWater(6,this.plan.water)"alt="glass of water" width="40"></button>
+                    <button class="btn btn-secondary p-0" @click="setWater(7)" > <img :src="selectedWater(7,this.plan.water)"alt="glass of water" width="40"></button>
+                    <button class="btn btn-secondary p-0" @click="setWater(8)" > <img :src="selectedWater(8,this.plan.water)"alt="glass of water" width="40"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alcohol my-2 bg-light shadow-sm p-3 -sm rounded">
+            <h3 class="title border-bottom">ALCOHOL 🥃</h3>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="alcohol" value="true" v-model="plan.alcohol">
+                <label class="form-check-label" for="inlineRadio1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="alcohol" value="false" v-model="plan.alcohol">
+                <label class="form-check-label" for="inlineRadio2">No</label>
+            </div>
+        </div>
+
+        <div class="thinks-thankful my-2 bg-light shadow-sm p-3 -sm rounded">
+            <h3 class="title border-bottom">3 THINKS I AM THANKFUL FOR 🙏</h3>
+            <ul v-for="item,index in plan.thankful" :key="index">
+                <li>{{ item }}</li>  
+            </ul>
+        </div>
+
+
+
+    </div>
+    <br>
+    <br>
+  
+
+</div>
+
+
+<script>
+const { createApp } = Vue
+createApp({
+    data() { return { plan:<%-JSON.stringify(plan)%>  }},
+    methods:{
+        selectedWater(a,c){
+           
+           if (a <= c){ return '/img/water-active.png'}
+           else{return '/img/water.png'}
+       },
+    }
+    }).mount('#dashboardApp')
+</script>
