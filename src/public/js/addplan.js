@@ -197,7 +197,7 @@ verifyForm(){
     addPlan(){
         this.loading=true
 
-        axios.post('http://localhost:3000/addplan', this.plan).then(function (response) {
+        axios.post('https://planr.life/addplan', this.plan).then(function (response) {
             console.log(response)
             
         })
