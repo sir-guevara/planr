@@ -59,11 +59,11 @@ export async function loginController(req:Request,res:Response){
    const cookieOptions={
       domain:'localhost',
       path: '/',
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7
+      maxAge: 60 *60 * 24 * 7* 1000,
+      httpOnly: true
    }
    res.cookie('PLANR-AUTH',user.authentication.sessionToken,cookieOptions)
-
+  
    return res.redirect('/dashboard')
    
 
