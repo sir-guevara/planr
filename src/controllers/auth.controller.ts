@@ -60,7 +60,8 @@ export async function loginController(req:Request,res:Response){
       domain:'localhost',
       path: '/',
       maxAge: 60 *60 * 24 * 7* 1000,
-      httpOnly: true
+      httpOnly: true,
+      secure:true
    }
    res.cookie('PLANR-AUTH',user.authentication.sessionToken,cookieOptions)
   
