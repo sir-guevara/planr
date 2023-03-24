@@ -57,7 +57,7 @@ export async function loginController(req:Request,res:Response){
    user.authentication.sessionToken = token
    await user.save()
    const cookieOptions={
-      domain:'localhost',
+      domain:'planr.life',
       path: '/',
       maxAge: 60 *60 * 24 * 7* 1000,
       httpOnly: true,
